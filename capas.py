@@ -74,6 +74,21 @@ def mod3():
 # 4. Polinômios e afins
 def mod4():
     newPage()
+    mod_size_x, mod_size_y, rows = mod_size(cols, grid_gap)
+    for x in range(cols):
+        for y in range(rows):
+            with savedState():
+                translate(margins[0], margins[1])
+                cmykFill(*main_color)
+                # https://www.wolframalpha.com/input/?i=parabola+passing+through+%282%2C60%29%2C%2822%2C4%29%2C%2841%2C60%29
+                calc_y = round(x**2 * 14 / 95 - x * 602 / 95 + 6848 / 95)
+                if calc_y <= y:
+                    fact = .8 * (1-y/rows) + .2
+                else:
+                    fact = .15 * (1-y/rows) + .05
+                delta_x = mod_size_x * (1-fact)/2
+                delta_y = mod_size_y * (1-fact)/2
+                rect(x*(mod_size_x+grid_gap) + delta_x,y*(mod_size_y+grid_gap) + delta_y, mod_size_x*fact, mod_size_y*fact)
 
 # 5. Trigonometria e Vetores
 def mod5():
@@ -105,9 +120,9 @@ def mod11():
 
 
 #mod1()
-#mod2()
+mod2()
 mod3()
-#mod4()
+mod4()
 #mod5()
 #mod6()
 #mod7()
