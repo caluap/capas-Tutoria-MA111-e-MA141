@@ -63,8 +63,8 @@ def mod3():
         for y in range(rows):
             with savedState():
                 translate(margins[0], margins[1])
-                adj_x = (x/(cols-1))
-                adj_y = (y/(rows-1))
+                adj_x = .2 + .8 * (x/(cols-1))
+                adj_y = .2 + .8 * (y/(rows-1))
                 cx = x*(mod_size_x+grid_gap) + mod_size_x/2
                 cy = y*(mod_size_y+grid_gap) + mod_size_y/2
                 rotate(45*adj_y*adj_x, center=(cx,cy))
