@@ -88,7 +88,7 @@ def mod4():
                 if calc_y <= y:
                     fact = .8 * (1-y/rows) + .2
                 else:
-                    fact = .15 * (1-y/rows) + .05
+                    fact = .15 * (1-y/rows) + .1
                 delta_x = mod_size_x * (1-fact)/2
                 delta_y = mod_size_y * (1-fact)/2
                 rect(x*(mod_size_x+grid_gap) + delta_x,y*(mod_size_y+grid_gap) + delta_y, mod_size_x*fact, mod_size_y*fact)
@@ -115,7 +115,29 @@ def mod5():
 # 6. Troca de variáveis e composição de funções
 def mod6():
     newPage()
-
+    mod_size_x, mod_size_y, rows = mod_size(cols, grid_gap)
+    for x in range(cols):
+        for y in range(rows):
+            with savedState():
+                translate(margins[0], margins[1])
+                cmykFill(*main_color)
+                # https://shar.es/aHM6en 
+                # {2,60}, {11,4},{22,20},{33,4}{41,60}
+                a = 17707 / 19242630
+                b = 762208 / 9621315
+                c = 2342279 / 1012770
+                d = 22861798 / 874665
+                e = 2747074 / 26505
+                calc_y = round(a * x ** 4 - b * x ** 3 + c * x ** 2 - d * x + e)
+                if calc_y <= y:
+                    fact = .6 * (1-y/rows) + .4
+                else:
+                    fact = .15 * (1-y/rows) + .1
+                    
+                delta_x = mod_size_x * (1-fact)/2
+                delta_y = mod_size_y * (1-fact)/2
+                rect(x*(mod_size_x+grid_gap) + delta_x,y*(mod_size_y+grid_gap) + delta_y, mod_size_x*fact, mod_size_y*fact)
+                
 # 7. Equação de retas e circunferências
 def mod7():
     newPage()
@@ -142,7 +164,7 @@ mod2()
 mod3()
 mod4()
 mod5()
-#mod6()
+mod6()
 #mod7()
 #mod8()
 #mod9()
