@@ -1,3 +1,5 @@
+import math
+
 size("A5")
 
 margins = (12.34, 13.23)
@@ -37,7 +39,6 @@ def mod2():
     angle_y = 45 / (rows-1)
     angle_x = 45 / (cols-1)
     
-    
     for x in range(cols):
         for y in range(rows):
             with savedState():
@@ -46,10 +47,12 @@ def mod2():
                 cy = y*(mod_size_y+grid_gap) + mod_size_y/2
                 angle = angle_y*y + angle_x*x
                 rotate(angle, center=(cx,cy))
-                #skew(angle_s*x,center=(xc,xy))
-                rect(x*(mod_size_x+grid_gap),y*(mod_size_y+grid_gap), mod_size_x, mod_size_y)
 
-
+                rad = math.radians(angle)
+                fact = 0.15 + 0.8t5 * math.sin(rad) * math.cos(rad) * 2
+                delta_x = mod_size_x * (1-fact)/2
+                delta_y = mod_size_y * (1-fact)/2
+                rect(x*(mod_size_x+grid_gap) + delta_x,y*(mod_size_y+grid_gap) + delta_y, mod_size_x*fact, mod_size_y*fact)
 # 3. Potências, equações exponenciais e logaritmos
 
 def mod3():
