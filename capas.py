@@ -49,7 +49,7 @@ def mod2():
                 rotate(angle, center=(cx,cy))
 
                 rad = math.radians(angle)
-                fact = 0.15 + 0.8t5 * math.sin(rad) * math.cos(rad) * 2
+                fact = 0.15 + 0.85 * math.sin(rad) * math.cos(rad) * 2
                 delta_x = mod_size_x * (1-fact)/2
                 delta_y = mod_size_y * (1-fact)/2
                 rect(x*(mod_size_x+grid_gap) + delta_x,y*(mod_size_y+grid_gap) + delta_y, mod_size_x*fact, mod_size_y*fact)
