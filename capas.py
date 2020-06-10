@@ -6,6 +6,7 @@ margins = (12.34, 13.23)
 size = (width()-(margins[0]*2), height() - (margins[1]*2))
 w = size[0]
 h = size[1]
+ratio = h/w
 
 grid_gap = 1.5
 cols = 44
@@ -15,8 +16,6 @@ main_color = (0,.44,1,0)
 
 def mod_size(cols, grid_gap):
     mod_size_x = (w - (grid_gap * (cols-1))) / cols
-
-    ratio = h/w
     rows = round(ratio*cols)
 
     mod_size_y = (h - (grid_gap * (rows -1))) / rows
@@ -129,7 +128,7 @@ def mod6():
                 d = 22861798 / 874665
                 e = 2747074 / 26505
                 calc_y = round(a * x ** 4 - b * x ** 3 + c * x ** 2 - d * x + e)
-                if calc_y <= y:
+                if calc_y > y:
                     fact = .6 * (1-y/rows) + .4
                 else:
                     fact = .15 * (1-y/rows) + .1
@@ -141,6 +140,23 @@ def mod6():
 # 7. Equação de retas e circunferências
 def mod7():
     newPage()
+    mod_size_x, mod_size_y, rows = mod_size(cols, grid_gap)
+    for x in range(cols):
+        for y in range(rows):
+            with savedState():
+                translate(margins[0], margins[1])
+                cmykFill(*main_color)
+                if x >= y:
+                    fact = max(0.15, min(1, y/cols))
+                else:
+                    fact = max(0.15, 1 - y/rows)
+                    cx = x*(mod_size_x+grid_gap) + mod_size_x/2
+                    cy = y*(mod_size_y+grid_gap) + mod_size_y/2
+                    rotate(45, center=(cx,cy))
+                    
+                delta_x = mod_size_x * (1-fact)/2
+                delta_y = mod_size_y * (1-fact)/2
+                rect(x*(mod_size_x+grid_gap) + delta_x,y*(mod_size_y+grid_gap) + delta_y, mod_size_x*fact, mod_size_y*fact)
 
 # 8. Transformações em gráficos
 def mod8():
@@ -165,7 +181,7 @@ mod3()
 mod4()
 mod5()
 mod6()
-#mod7()
+mod7()
 #mod8()
 #mod9()
 #mod10()
