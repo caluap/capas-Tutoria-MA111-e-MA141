@@ -233,7 +233,47 @@ def mod10():
 # 11. Revisão para frações parciais
 def mod11():
     newPage()
+    mod_size_x, mod_size_y, rows = mod_size(cols, grid_gap)
+    for x in range(cols):
+        for y in range(rows):
+            with savedState():
+                translate(margins[0], margins[1])
+                cmykFill(*main_color)
+                
+                fact = 0.15
+                yeah = False
+                
+                if x < cols/2:
+                    # x: 0--21, y: 0--62
+                    _x = x - 21
+                    _y = y - 31
+                    calc_y = -100 * math.e ** (1.17175 * _x)
+                    if _y < calc_y:
+                        fact = 1 - max(0.3, y/cols)
+                        yeah = True
+                    else:
+                        pass
+                else:                    
+                    _x = x - 21
+                    _y = y - 31
+                    calc_y = 1000 * math.e ** (-1.38155 * _x) #{0,1000},{5,1}
+                    if _y >= calc_y:
+                        fact = max(0.3, (y-31)/cols) 
+                        yeah = True
+                    else:
+                        pass
+                    
+                if yeah:
+                    cx = x*(mod_size_x+grid_gap) + mod_size_x/2
+                    cy = y*(mod_size_y+grid_gap) + mod_size_y/2
+                    rotate(45, center=(cx,cy))
+                    
+                delta_x = mod_size_x * (1-fact)/2
+                delta_y = mod_size_y * (1-fact)/2
+                rect(x*(mod_size_x+grid_gap) + delta_x,y*(mod_size_y+grid_gap) + delta_y, mod_size_x*fact, mod_size_y*fact)
 
+
+#44/63
 
 #mod1()
 #mod2()
@@ -245,4 +285,4 @@ def mod11():
 #mod8()
 #mod9()
 mod10()
-#mod11()
+mod11()
