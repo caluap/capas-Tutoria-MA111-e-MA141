@@ -167,13 +167,13 @@ def mod8():
             with savedState():
                 translate(margins[0], margins[1])
                 cmykFill(*main_color)
-                if round(y) == round((x/5.556)**2):
+                if round(y) == round((x/5.545)**2):
                     fact = 0.5
                     cx = x*(mod_size_x+grid_gap) + mod_size_x/2
                     cy = y*(mod_size_y+grid_gap) + mod_size_y/2
                     rotate(45, center=(cx,cy))
                 else:
-                    fact = 1 - max(0.25, min(0.75, y/cols))
+                    fact = max(0.15, min(0.5, y**0.75/cols))
                     
                 delta_x = mod_size_x * (1-fact)/2
                 delta_y = mod_size_y * (1-fact)/2
@@ -182,6 +182,22 @@ def mod8():
 # 9. Revisão para integrais por partes
 def mod9():
     newPage()
+    mod_size_x, mod_size_y, rows = mod_size(cols, grid_gap)
+    for x in range(cols):
+        for y in range(rows):
+            with savedState():
+                translate(margins[0], margins[1])
+                cmykFill(*main_color)
+                if round(y) <= round((x/5.45)**2):
+                    fact_x = 0.5
+                    fact_y = 1.25
+                else:
+                    fact_x = .15
+                    fact_y = .15
+                    
+                delta_x = mod_size_x * (1-fact_x)/2
+                delta_y = mod_size_y * (1-fact_y)/2
+                rect(x*(mod_size_x+grid_gap) + delta_x,y*(mod_size_y+grid_gap) + delta_y, mod_size_x*fact_x, mod_size_y*fact_y)
 
 # 10. Revisão para integrais trigonométricas
 def mod10():
@@ -192,14 +208,14 @@ def mod11():
     newPage()
 
 
-mod1()
-mod2()
-mod3()
-mod4()
-mod5()
-mod6()
-mod7()
+#mod1()
+#mod2()
+#mod3()
+#mod4()
+#mod5()
+#mod6()
+#mod7()
 mod8()
-#mod9()
+mod9()
 #mod10()
 #mod11()
