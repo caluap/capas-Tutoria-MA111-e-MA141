@@ -26,7 +26,28 @@ def mod_size(cols, grid_gap):
     
 # 1. Introdução
 def mod1():
-    pass
+    cmykFill(*main_color)
+    
+
+    mod_size_x, mod_size_y, rows = mod_size(41, grid_gap)
+    
+    
+    for x in range(41):
+        for y in range(rows):
+            with savedState():
+                translate(margins[0], margins[1])
+                if x % 2 == 0 and y % 2 == 0:
+                    fact = 0.5
+                    cx = x*(mod_size_x+grid_gap) + mod_size_x/2
+                    cy = y*(mod_size_y+grid_gap) + mod_size_y/2
+                    s = math.sin(y/(rows-1) * x/(cols-1) * 60)
+                    rotate(s * 45, center=(cx,cy))
+                else:
+                    fact = 0.25
+                    
+                delta_x = mod_size_x * (1-fact)/2
+                delta_y = mod_size_y * (1-fact)/2
+                rect(x*(mod_size_x+grid_gap) + delta_x,y*(mod_size_y+grid_gap) + delta_y, mod_size_x*fact, mod_size_y*fact)
 
 # 2. Matrizes 2 × 2
 
@@ -275,14 +296,14 @@ def mod11():
 
 #44/63
 
-#mod1()
-#mod2()
-#mod3()
-#mod4()
-#mod5()
-#mod6()
-#mod7()
-#mod8()
-#mod9()
+mod1()
+mod2()
+mod3()
+mod4()
+mod5()
+mod6()
+mod7()
+mod8()
+mod9()
 mod10()
 mod11()
