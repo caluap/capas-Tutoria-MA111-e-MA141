@@ -167,10 +167,13 @@ def mod8():
             with savedState():
                 translate(margins[0], margins[1])
                 cmykFill(*main_color)
-                if round(y/ratio) == x:
-                    fact = 1
+                if round(y) == round((x/5.556)**2):
+                    fact = 0.5
+                    cx = x*(mod_size_x+grid_gap) + mod_size_x/2
+                    cy = y*(mod_size_y+grid_gap) + mod_size_y/2
+                    rotate(45, center=(cx,cy))
                 else:
-                    fact = 0.2
+                    fact = 1 - max(0.25, min(0.75, y/cols))
                     
                 delta_x = mod_size_x * (1-fact)/2
                 delta_y = mod_size_y * (1-fact)/2
@@ -189,7 +192,7 @@ def mod11():
     newPage()
 
 
-#mod1()
+mod1()
 mod2()
 mod3()
 mod4()
