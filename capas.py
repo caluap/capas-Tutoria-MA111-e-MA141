@@ -161,6 +161,20 @@ def mod7():
 # 8. Transformações em gráficos
 def mod8():
     newPage()
+    mod_size_x, mod_size_y, rows = mod_size(cols, grid_gap)
+    for x in range(cols):
+        for y in range(rows):
+            with savedState():
+                translate(margins[0], margins[1])
+                cmykFill(*main_color)
+                if round(y/ratio) == x:
+                    fact = 1
+                else:
+                    fact = 0.2
+                    
+                delta_x = mod_size_x * (1-fact)/2
+                delta_y = mod_size_y * (1-fact)/2
+                rect(x*(mod_size_x+grid_gap) + delta_x,y*(mod_size_y+grid_gap) + delta_y, mod_size_x*fact, mod_size_y*fact)
 
 # 9. Revisão para integrais por partes
 def mod9():
@@ -182,7 +196,7 @@ mod4()
 mod5()
 mod6()
 mod7()
-#mod8()
+mod8()
 #mod9()
 #mod10()
 #mod11()
