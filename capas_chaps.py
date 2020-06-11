@@ -302,6 +302,48 @@ def mod11():
                 rect(x*(mod_size_x+grid_gap) + delta_x,y*(mod_size_y+grid_gap) + delta_y, mod_size_x*fact, mod_size_y*fact)
 
 
+# 7. Equação de retas e circunferências
+def mod7b():
+    newPage()
+    mod_size_x, mod_size_y, rows = mod_size(cols, grid_gap)
+    for x in range(cols):
+        for y in range(rows):
+            with savedState():
+                translate(margins[0], margins[1])
+                cmykFill(*main_color)
+                
+                m = 4
+                c_x = 21.5
+                c_y = 23
+                r = c_x - m
+
+                a = abs(x - c_x)
+                b = y - c_y
+                
+                distance = (a**2 + b**2)**0.5
+                if x >= y:
+                    fact = max(0.15, min(1, y/cols))
+                else:
+                    fact = max(0.15, 1 - y/rows)
+                    cx = x*(mod_size_x+grid_gap) + mod_size_x/2
+                    cy = y*(mod_size_y+grid_gap) + mod_size_y/2
+                    rotate(45, center=(cx,cy))
+                    
+                if round(distance) <= r:
+                    fact = min(1, (1 - fact) * 1.25)
+                    fact = max(.15, fact * round(distance)/r)
+                    
+                    if round(distance) > r - 1: # border
+                        pass
+                        #cmykFill(1,0,0,0)
+
+               
+                    
+                delta_x = mod_size_x * (1-fact)/2
+                delta_y = mod_size_y * (1-fact)/2
+                rect(x*(mod_size_x+grid_gap) + delta_x,y*(mod_size_y+grid_gap) + delta_y, mod_size_x*fact, mod_size_y*fact)
+
+
 #44/63
 
 mod1()
@@ -315,3 +357,4 @@ mod8()
 mod9()
 mod10()
 mod11()
+mod7b()
