@@ -1,20 +1,20 @@
 import math
 
-#size(814.377, 448.088)
-size(287.294, 130.947)
-#margins = (2, 2)
-margins = (1, 1)
+size(814.377, 448.088)
+#size(287.294, 130.947)
+margins = (2, 2)
+#margins = (1, 1)
 
 size = (width()-(margins[0]*2), height() - (margins[1]*2))
 w = size[0]
 h = size[1]
 ratio = h/w
 
-#grid_gap = 5
-#cols = 67
+grid_gap = 3
+cols = 111
 
-grid_gap = 2
-cols = 59
+#grid_gap = 2
+#cols = 59
 
 
 bg_color = (.09,.1,.16,0)
@@ -29,8 +29,8 @@ def mod_size(cols, grid_gap):
     
 mod_size_x, mod_size_y, rows = mod_size(cols, grid_gap)
 
-angle_y = 90 / (rows-1)
-angle_x = 90 / (cols-1)
+angle_y = 180 / (rows-1)
+angle_x = 30 / (cols-1)
 
 for x in range(cols):
     for y in range(rows):
@@ -44,12 +44,16 @@ for x in range(cols):
             rad = math.radians(angle)
             if x % 2 == 0 and y % 2 == 0:
                 fact = 1
+                cmykStroke(None)
                 cmykFill(*main_color)
-                rotate(angle, center=(cx,cy))
+                if (x % 4 == 0 and y % 4 != 0) or (x % 4 != 0 and y % 4 == 0):
+                    rotate(45, center=(cx,cy))
             else:
-                fact = 1.1
-                cmykFill(*bg_color)
-                rotate(angle * 2, center=(cx,cy))
+                fact = .5
+                cmykStroke(*bg_color)
+                sW = max(1, 3 * math.sin(math.radians(angle_y*y)) * math.cos(math.radians(angle_x*x)))
+                strokeWidth(sW)
+                cmykFill(None)
             
             delta_x = mod_size_x * (1-fact)/2
             delta_y = mod_size_y * (1-fact)/2
