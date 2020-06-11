@@ -86,13 +86,21 @@ def mod3():
         for y in range(rows):
             with savedState():
                 translate(margins[0], margins[1])
-                adj_x = .2 + .8 * (x/(cols-1))
-                adj_y = .2 + .8 * (y/(rows-1))
-                cx = x*(mod_size_x+grid_gap) + mod_size_x/2
-                cy = y*(mod_size_y+grid_gap) + mod_size_y/2
-                rotate(45*adj_y*adj_x, center=(cx,cy))
-           
-                rect(x*(mod_size_x+grid_gap),y*(mod_size_y+grid_gap), mod_size_x*adj_x*adj_y, mod_size_y*adj_x*adj_y)
+                delta_y = rows - 1 - y
+                if delta_y <= x:
+                    adj_x = min(.95, .4 + .6 * (x/(cols-1)))
+                    adj_y = min(.95, .4 + .6 * (y/(rows-1)))
+                    
+                    cx = x*(mod_size_x+grid_gap) + mod_size_x/2
+                    cy = y*(mod_size_y+grid_gap) + mod_size_y/2
+                    rotate(45*adj_y*adj_x, center=(cx,cy))
+                    
+                    rect(x*(mod_size_x+grid_gap),y*(mod_size_y+grid_gap), mod_size_x*adj_x*adj_y, mod_size_y*adj_x*adj_y)
+                else:
+                    fact = max(.2, (1 - y/rows) * 0.4) - .1 * x/cols
+                    rect(x*(mod_size_x+grid_gap),y*(mod_size_y+grid_gap), mod_size_x*fact, mod_size_y*fact)
+                
+                
 
 # 4. Polinômios e afins
 def mod4():
