@@ -44,16 +44,12 @@ for x in range(cols):
             rad = math.radians(angle)
             if x % 2 == 0 and y % 2 == 0:
                 fact = 1
-                cmykStroke(None)
                 cmykFill(*main_color)
                 if (x % 4 == 0 and y % 4 != 0) or (x % 4 != 0 and y % 4 == 0):
                     rotate(45, center=(cx,cy))
             else:
-                fact = .5
-                cmykStroke(*bg_color)
-                sW = max(1, 3 * math.sin(math.radians(angle_y*y)) * math.cos(math.radians(angle_x*x)))
-                strokeWidth(sW)
-                cmykFill(None)
+                fact = .666
+                cmykFill(*bg_color)
             
             delta_x = mod_size_x * (1-fact)/2
             delta_y = mod_size_y * (1-fact)/2
